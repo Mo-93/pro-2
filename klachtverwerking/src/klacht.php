@@ -14,13 +14,22 @@
 
 <?php 
 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+//Load Composer's autoloader
 require '../vendor/autoload.php';
 
-?> 
-
-
-<?php 
-
+//Create an instance; passing true enables exceptions
+$mail = new PHPMailer(true);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -28,15 +37,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $Email = htmlspecialchars($_POST["Email"]);
     $klacht = htmlspecialchars($_POST["klacht"]);
 
-   
-    echo "<h1>Uw klacht is in behandeling</h1>";
-    echo "<br>";
-    echo "<h2>$firstname</h2>";
-    echo "<br>";
-    echo "<h2>$Email</h2>";
-
-
 }
+    
+
+try {
+    //Server settings
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'moh301530@gmail.com';                     //SMTP username
+    $mail->Password   = 'M12131415';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS
+
+    //Recipients
+    $mail->setFrom('moh301530@gmail.com', 'Mohamad');
+    $mail->addAddress($Email, $firstname);     
+    $mail->addAddress($Email, $firstname);     
+    $mail->addCC('moh301530@gmail.com');
+
+
+
+
+   //Content
+   $mail->isHTML(true);                                  //Set email format to HTML
+   $mail->Subject = 'uw klacht is in behandeling, uw behandeling nummer is  ';
+   $mail->Body    = 'Dit is uw klacht: ' . $klacht ;
+   $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+   $mail->send();
+   echo 'Message has been sent';
+} catch (Exception $e) {
+   echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
 
 
 ?>

@@ -1,10 +1,4 @@
 
-<?php 
-
-require '../vendor/autoload.php';
-
-?> 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,18 +44,13 @@ require '../vendor/autoload.php';
 
 </div>
 
-
-
-                <button type= "submit">sturen</button>
-
-
+            <button type= "submit">send</button>
 
 </form>
 
 </div>
 
 
-    
 </body>
 </html>
 
