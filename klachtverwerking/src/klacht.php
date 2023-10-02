@@ -14,6 +14,8 @@
 
 <?php 
 
+require '../vendor/autoload.php';
+
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
@@ -26,9 +28,9 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 //Load Composer's autoloader
-require '../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable( DIR . '/');
+
+$dotenv = Dotenv\Dotenv::createImmutable( __DIR__ . '/');
 $dotenv->load();
 
 //Create an instance; passing true enables exceptions
@@ -45,16 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 try {
     //Server settings
-
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = $_ENV['SMTP_HOST'] ;                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = $_ENV['SMTP_USERNAME'];                     //SMTP username
     $mail->Password   = $_ENV['SMTP_PASSWORD'];                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = $_ENV['SMTP_PORT'];
-
-                                    //TCP port to connect to; use 587 if you have set SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+    $mail->Port       = $_ENV['SMTP_PORT'];   
+    $mail->SMTPAutoTLS= true;                                   //TCP port to connect to; use 587 if you have set SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS
 
     //Recipients
     $mail->setFrom('moh301530@gmail.com', 'Mohamad');

@@ -12,71 +12,85 @@
 </html>
 
 
-<?php 
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-//Load Composer's autoloader
 require '../vendor/autoload.php';
 
-//Create an instance; passing true enables exceptions
+$dotenv = Dotenv\Dotenv::createImmutable( __DIR__ . '/');
+$dotenv->load();
+
+// Create an instance; passing true enables exceptions
 $mail = new PHPMailer(true);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['email']) && isset($_GET['name'])) {
+    $name = urldecode($_GET['name']);
+    $email = urldecode($_GET['email']);
 
-    
-    $voornaam = htmlspecialchars($_POST["voornaam"]);
-    $achternaam = htmlspecialchars($_POST["achternaam"]);
-    $email = htmlspecialchars($_POST["email"]);
+    try {
+        // Server settings
+        $mail->isSMTP();  // Send using SMTP
+        $mail->Host = $_ENV['SMTP_HOST'];
+        $mail->SMTPAuth = true;  // Enable SMTP authentication
+        $mail->Username = $_ENV['SMTP_USERNAME'];
+        $mail->Password = $_ENV['SMTP_PASSWORD'];
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Enable implicit TLS encryption
+        $mail->Port = $_ENV['SMTP_PORT'];
+        $mail->SMTPAutoTLS= true;   
 
-    
-   
+        // Recipients
+        $mail->setFrom('moh301530@gmail.com', 'Mohamad');
+        $mail->addAddress($email, $name);
+        $mail->addCC('mohamad-h8@hotmail.com');
+       
 
+        // Content
+        $mail->isHTML(true);  // Set email format to HTML
+        $mail->Subject = 'Welkom in onze klas.'  . $name ;
+        $mail->Body =  'Hallo, we zijn erg blij dat je er bent, ' . $name . '!'  ;
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+} else {
+    echo 'Missing required data';
 }
-    
-
-try {
-    //Server settings
-   
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = $_ENV['SMTP_HOST'] ;                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = $_ENV['SMTP_USERNAME'];                     //SMTP username
-    $mail->Password   = $_ENV['SMTP_PASSWORD'];                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = $_ENV['SMTP_PORT'];                               //TCP port to connect to; use 587 if you have set SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS
-
-    //Recipients
-    $mail->setFrom('moh301530@gmail.com', 'Mohamad');
-    $mail->addAddress($email,$voornaam,$achternaam);     
-    $mail->addAddress($email,$voornaam,$achternaam);     
-    $mail->addCC('moh301530@gmail.com');
-
-
-
-
-   //Content
-   $mail->isHTML(true);                                  //Set email format to HTML
-   $mail->Subject = 'welcom in ons group ';
-   $mail->Body    = 'nieuw student ';
-   $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-   $mail->send();
-   echo 'Message has been sent';
-} catch (Exception $e) {
-   echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-
-
-
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

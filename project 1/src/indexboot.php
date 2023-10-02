@@ -1,18 +1,25 @@
 <?php
 
+
+
  ini_set('display_errors', 1);
  ini_set('display_startup_errors', 1);
  error_reporting(E_ALL);
 
+ require '../vendor/autoload.php';
 
+ // $dotenv = Dotenv\Dotenv::createImmutable('./');
+ $dotenv = Dotenv\Dotenv::createImmutable( __DIR__ . '/');
+ $dotenv->load();
 
  session_start();
 
 
-$host="localhost";
-$username="Mo";
-$password="0000";
-$dbname="clianten";
+$host= $_ENV['DB_HOST'];
+$username = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
+$dbname = $_ENV['DB_NAME'];
+
 
 // Create connection
 $conn = mysqli_connect($host, $username, $password, $dbname);
@@ -47,7 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <script src="index.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="st.css">
+  <link rel="stylesheet" href="homepdf.php">
+  <link rel="stylesheet" href="homecsv.php">
+  
+
 
   <title> ouer teams</title>
 </head>
@@ -74,10 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           Dropdown
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">ons grouwp</a>
-          <a class="dropdown-item" href="#">home</a>
+          <a class="dropdown-item" href="homepdf.php">exporteer naar PDF</a>
+          <a class="dropdown-item" href="homecsv.php">exporteer naar csv</a>
           <div class="dropdown-divider">contact</div>
-          <a class="dropdown-item" href="#">Server</a>
+          <a class="dropdown-item" href="klachtverwerking/src/index.php">klacht</a>
         </div>
       </li>
       <li class="nav-item">
@@ -106,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class = "container mt-5 text-center">
 <div class = "row">
          <?php
+
          global $conn;
 
   $query = "SELECT * FROM studenten ORDER BY telefoon"   ;
@@ -135,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
-    <div class="col-lg-4 p-1 col-md-6 col-12">
+    <div class="col-lg-4 p-1 mt-5 col-md-6 col-12">
                <div class="card" style="width: 18rem;" >
                    <img src="imag/<?php echo $foto;?>" style= "width:18rem; height: 18rem;"class="card-img-top" alt="...">
                    <div class="card-body">
@@ -143,12 +155,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        <div class="list-group">
+        <div class="list-group" >
          <button class=" btn btn-outline-info" href="#x" data-toggle="collapse" data-target="#x" >Info</button>
 
         <div class="collapse" id="x">
-        <a href="https://www.outlook.com/" class="list-group-item mb-0 list-group-item-action"><p> <?php echo 'email : ' .$email;?></p></a>
-        <a href="https://www.google.com/" class="list-group-item mb-0 list-group-item-action"><p> <?php echo 'telefoon : ' . $telefoon;?></p></a>
+        <a href="mailer.php" class="list-group-item mb-0 list-group-item-action"><p> <?php echo 'email : ' .$email;?></p></a>
+        <a href= "" class="list-group-item mb-0 list-group-item-action"><p> <?php echo 'telefoon : ' . $telefoon;?></p></a>
 
 
         </div>
