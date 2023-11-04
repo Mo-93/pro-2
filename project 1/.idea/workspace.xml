@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6b80277a-c9ab-4aae-a5b3-0080eae9de4a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../klachtverwerking/src/klacht.php" beforeDir="false" afterPath="$PROJECT_DIR$/../klachtverwerking/src/klacht.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/env" beforeDir="false" afterPath="$PROJECT_DIR$/src/env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/indexboot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/indexboot.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mailer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mailer.php" afterDir="false" />
-    </list>
+    <list default="true" id="6b80277a-c9ab-4aae-a5b3-0080eae9de4a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,19 +22,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/WEB - Mappenstructuur/Leerjaar 2/Webtechnologie/Periode 1/project 1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Web 2023/php",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\WEB - Mappenstructuur\Leerjaar 2\Webtechnologie\Periode 1\project 1\imag" />
@@ -60,6 +54,7 @@
       <workItem from="1696111581579" duration="61000" />
       <workItem from="1696111654317" duration="11000" />
       <workItem from="1696150187031" duration="1084000" />
+      <workItem from="1696315857230" duration="33000" />
     </task>
     <servers />
   </component>
